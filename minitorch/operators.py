@@ -60,7 +60,7 @@ def eq(num1, num2):
 
 
 def max(num1, num2):
-    return max(num1, num2)
+    return num2 if lt(num1, num2) else num1
 
 
 def is_close(num1, num2, atol=1e-2):
@@ -98,7 +98,7 @@ def inv_back(num1, num2):
 
 
 def relu_back(num1, num2):
-    derivative = num1 if lt(0.0, num1) else 0.0
+    derivative = 1.0 if lt(0.0, num1) else 0.0
     return mul(derivative, num2)
 
 # ## Task 0.3
