@@ -5,6 +5,7 @@ import math
 # ## Task 0.1
 from typing import Callable, Iterable
 
+
 #
 # Implementation of a prelude of elementary functions.
 
@@ -34,6 +35,71 @@ from typing import Callable, Iterable
 
 # TODO: Implement for Task 0.1.
 
+def mul(num1, num2):
+    return num1 * num2
+
+
+def id(inp):
+    return inp
+
+
+def add(num1, num2):
+    return num1 + num2
+
+
+def neg(num):
+    return -num
+
+
+def lt(num1, num2):
+    return num1 < num2
+
+
+def eq(num1, num2):
+    return num1 == num2
+
+
+def max(num1, num2):
+    return max(num1, num2)
+
+
+def is_close(num1, num2, atol=1e-2):
+    return abs(num1 - num2) < atol
+
+
+def exp(num):
+    return math.exp(num)
+
+
+def inv(num):
+    return 1 / num
+
+
+def sigmoid(num):
+    if lt(num, 0.0):
+        return mul(exp(num), inv(add(1.0, exp(num))))
+    return inv(add(1.0, exp(neg(num))))
+
+
+def relu(num):
+    return max(0.0, num)
+
+
+def log(num):
+    return math.log(num)
+
+
+def log_back(num1, num2):
+    return mul(num2, inv(num1))
+
+
+def inv_back(num1, num2):
+    return mul(num2, inv(mul(num1, num1)))
+
+
+def relu_back(num1, num2):
+    derivative = num1 if lt(0.0, num1) else 0.0
+    return mul(derivative, num2)
 
 # ## Task 0.3
 
