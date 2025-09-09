@@ -118,3 +118,27 @@ def relu_back(num1, num2):
 
 
 # TODO: Implement for Task 0.3.
+
+def map(f: Callable, list_a: Iterable):
+    # TODO
+    return list_a
+
+def zipWith(f: Callable, list_a: Iterable, list_b: Iterable):
+    # TODO
+    return
+
+def reduce(f: Callable, list_a: Iterable):
+    # TODO
+    return 
+
+def negList(list_a):
+    return map(neg, list_a)
+
+def addLists(list_a, list_b):
+    return zipWith(add, list_a, list_b)
+
+def sum(list_a):
+    return reduce(sum, list_a)
+
+def prod(list_a):
+    return reduce(mul, list_a)
