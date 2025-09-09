@@ -99,8 +99,8 @@ def test_eq(a: float) -> None:
 
 
 @pytest.mark.task0_2
-@given(small_floats)
-def test_sigmoid(list_a: list) -> None:
+@given(lists(small_floats, min_size=2, max_size=20))
+def test_sigmoid(list_a: List[float]) -> None:
     """Check properties of the sigmoid function, specifically
     * It is always between 0.0 and 1.0.
     * one minus sigmoid is the same as sigmoid of the negative
@@ -150,10 +150,18 @@ def test_distribute(x: float, y: float, z: float) -> None:
 
 
 @pytest.mark.task0_2
-def test_other() -> None:
+@given(small_floats)
+def test_other(a: float) -> None:
     """Write a test that ensures some other property holds for your functions."""
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+
+    """ Test -(-a) == a"""
+    assert neg(neg(a)) == a
+
+    """ Test a + (-a) == 0"""
+    assert add(a, neg(a)) == 0.0
+
+    """ Test a * (1/a) == 1.0 """
+    assert assert_close(mul(a, inv(a)), 1.0)
 
 
 # ## Task 0.3  - Higher-order functions
