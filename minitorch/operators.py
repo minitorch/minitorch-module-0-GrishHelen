@@ -33,7 +33,7 @@ from typing import Callable, Iterable
 # $f(x) = |x - y| < 1e-2$
 
 
-# TODO: Implement for Task 0.1.
+# Implement for Task 0.1.
 
 def mul(num1, num2):
     return num1 * num2
@@ -117,19 +117,24 @@ def relu_back(num1, num2):
 # - prod: take the product of lists
 
 
-# TODO: Implement for Task 0.3.
+# Implement for Task 0.3.
 
 def map(f: Callable, list_a: Iterable):
-    # TODO
-    return list_a
+    return list(map(f, list_a))
 
 def zipWith(f: Callable, list_a: Iterable, list_b: Iterable):
-    # TODO
-    return
+    res = []
+    for (a, b) in zip(list_a, list_b):
+        res.append(f(a, b))
+    return res
 
 def reduce(f: Callable, list_a: Iterable):
-    # TODO
-    return 
+    # used https://github.com/python/cpython/blob/282bd0fe98bf1c3432fd5a079ecf65f165a52587/Lib/functools.py#L238
+    it = iter(list_a)
+    value = next(it)
+    for element in it:
+        value = f(value, element)
+    return value
 
 def negList(list_a):
     return map(neg, list_a)
