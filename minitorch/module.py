@@ -32,14 +32,16 @@ class Module:
     def train(self) -> None:
         """Set the mode of this module and all descendent modules to `train`."""
         # Implement for Task 0.4.
+        self.training = True
         for module in self.modules():
-            module.training = True
+            module.train()
 
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
         # Implement for Task 0.4.
+        self.training = False
         for module in self.modules():
-            module.training = False
+            module.eval()
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
@@ -50,14 +52,25 @@ class Module:
 
         """
         # Implement for Task 0.4.
+        res = []
         p: Dict[str, Parameter] = self.__dict__["_parameters"]
-        return list(p.items())
+        res.extend(list(p.items()))
+        for module_name, module in self._modules.items():
+            module_p = module.named_parameters()
+            module_p = [(f'{module_name}.{key}', value) for key, value in module_p]
+            res.extend(module_p)
+        return res
 
     def parameters(self) -> Sequence[Parameter]:
         """Enumerate over all the parameters of this module and its descendents."""
         # Implement for Task 0.4.
+        res = []
         p: Dict[str, Parameter] = self.__dict__["_parameters"]
-        return list(p.values())
+        res.extend(list(p.values()))
+        for module in self.modules():
+            module_p = module.parameters()
+            res.extend(module_p)
+        return res
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """Manually add a parameter. Useful helper for scalar parameters.
