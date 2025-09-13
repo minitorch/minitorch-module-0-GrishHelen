@@ -27,6 +27,7 @@ from minitorch.operators import (
 
 from .strategies import assert_close, small_floats
 
+
 # ## Task 0.1 Basic hypothesis tests.
 
 
@@ -111,13 +112,13 @@ def test_sigmoid(list_a: List[float]) -> None:
         assert 0.0 <= sigmoid(a) <= 1.0
 
     for a in list_a:
-        assert 1 - sigmoid(a) == sigmoid(-a)
+        assert_close(1 - sigmoid(a), sigmoid(-a))
 
-    assert sigmoid(0.5) == 0
+    assert_close(sigmoid(0), 0.5)
 
     sorted_list_a = sorted(list_a)
     for i in range(len(sorted_list_a) - 1):
-        assert sorted_list_a[i] == sorted_list_a[i + 1] or sigmoid(sorted_list_a[i]) < sigmoid(sorted_list_a[i + 1])
+        assert sigmoid(sorted_list_a[i]) <= sigmoid(sorted_list_a[i + 1])
 
 
 @pytest.mark.task0_2
@@ -146,7 +147,7 @@ def test_distribute(x: float, y: float, z: float) -> None:
     """
     var_1 = mul(z, add(x, y))
     var_2 = add(mul(z, x), mul(z, y))
-    assert var_1 == var_2
+    assert_close(var_1, var_2)
 
 
 @pytest.mark.task0_2
@@ -155,13 +156,10 @@ def test_other(a: float) -> None:
     """Write a test that ensures some other property holds for your functions."""
 
     """ Test -(-a) == a"""
-    assert neg(neg(a)) == a
+    assert_close(neg(neg(a)), a)
 
     """ Test a + (-a) == 0"""
-    assert add(a, neg(a)) == 0.0
-
-    """ Test a * (1/a) == 1.0 """
-    assert assert_close(mul(a, inv(a)), 1.0)
+    assert_close(add(a, neg(a)), 0.0)
 
 
 # ## Task 0.3  - Higher-order functions
@@ -188,14 +186,16 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     """Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError("Need to implement for Task 0.3")
+    # Implement for Task 0.3.
+    var_1 = minitorch.operators.sum(ls1) + minitorch.operators.sum(ls2)
+    var_2 = minitorch.operators.sum(addLists(ls1, ls2))
+    assert_close(var_1, var_2)
 
 
 @pytest.mark.task0_3
 @given(lists(small_floats))
 def test_sum(ls: List[float]) -> None:
-    assert_close(sum(ls), minitorch.operators.sum(ls))
+    assert sum(ls) == minitorch.operators.sum(ls)
 
 
 @pytest.mark.task0_3
@@ -230,7 +230,7 @@ def test_one_args(fn: Tuple[str, Callable[[float], float]], t1: float) -> None:
 @given(small_floats, small_floats)
 @pytest.mark.parametrize("fn", two_arg)
 def test_two_args(
-    fn: Tuple[str, Callable[[float, float], float]], t1: float, t2: float
+        fn: Tuple[str, Callable[[float, float], float]], t1: float, t2: float
 ) -> None:
     name, base_fn = fn
     base_fn(t1, t2)

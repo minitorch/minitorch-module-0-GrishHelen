@@ -101,6 +101,7 @@ def relu_back(num1, num2):
     derivative = 1.0 if lt(0.0, num1) else 0.0
     return mul(derivative, num2)
 
+
 # ## Task 0.3
 
 # Small practice library of elementary higher-order functions.
@@ -120,7 +121,11 @@ def relu_back(num1, num2):
 # Implement for Task 0.3.
 
 def map(f: Callable, list_a: Iterable):
-    return list(map(f, list_a))
+    res = []
+    for a in list_a:
+        res.append(f(a))
+    return res
+
 
 def zipWith(f: Callable, list_a: Iterable, list_b: Iterable):
     res = []
@@ -128,22 +133,34 @@ def zipWith(f: Callable, list_a: Iterable, list_b: Iterable):
         res.append(f(a, b))
     return res
 
+
 def reduce(f: Callable, list_a: Iterable):
     # used https://github.com/python/cpython/blob/282bd0fe98bf1c3432fd5a079ecf65f165a52587/Lib/functools.py#L238
     it = iter(list_a)
-    value = next(it)
+
+    try:
+        value = next(it)
+    except StopIteration:
+        return None
+
     for element in it:
         value = f(value, element)
     return value
 
+
 def negList(list_a):
     return map(neg, list_a)
+
 
 def addLists(list_a, list_b):
     return zipWith(add, list_a, list_b)
 
+
 def sum(list_a):
-    return reduce(sum, list_a)
+    if len(list_a) == 0:
+        return 0
+    return reduce(add, list_a)
+
 
 def prod(list_a):
     return reduce(mul, list_a)
