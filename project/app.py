@@ -35,26 +35,30 @@ module_selection = st.sidebar.radio(
     index=module_num,
 )
 
-
 PAGES = {}
 
 if module_selection == "Module 0":
     from module_interface import render_module_sandbox
     from run_manual import ManualTrain
 
+
     def render_run_manual_interface():
         st.header("Module 0 - Manual")
         render_train_interface(ManualTrain, False, False, True)
 
+
     def render_m0_sandbox():
         return render_math_sandbox(False)
+
 
     PAGES["Math Sandbox"] = render_m0_sandbox
     PAGES["Module Sandbox"] = render_module_sandbox
 
+
     def render_run_torch_interface():
         st.header("Demo - Torch")
         render_train_interface(TorchTrain, False)
+
 
     PAGES["Torch Example"] = render_run_torch_interface
     PAGES["Module 0: Manual"] = render_run_manual_interface
@@ -63,12 +67,15 @@ if module_selection == "Module 1":
     from run_scalar import ScalarTrain
     from show_expression_interface import render_show_expression
 
+
     def render_m1_sandbox():
         return render_math_sandbox(True)
+
 
     def render_run_scalar_interface():
         st.header("Module 1 - Scalars")
         render_train_interface(ScalarTrain)
+
 
     PAGES["Scalar Sandbox"] = render_m1_sandbox
     PAGES["Autodiff Sandbox"] = render_show_expression
@@ -79,25 +86,29 @@ if module_selection == "Module 2":
     from show_expression_interface import render_show_expression
     from tensor_interface import render_tensor_sandbox
 
+
     def render_run_tensor_interface():
         st.header("Module 2 - Tensors")
         render_train_interface(TensorTrain)
 
+
     def render_m2_sandbox():
         return render_math_sandbox(True, True)
+
 
     PAGES["Tensor Sandbox"] = lambda: render_tensor_sandbox(hide_function_defs)
     PAGES["Tensor Math Sandbox"] = render_m2_sandbox
     PAGES["Autograd Sandbox"] = lambda: render_show_expression(True)
     PAGES["Module 2: Tensor"] = render_run_tensor_interface
 
-
 if module_selection == "Module 3":
     from run_fast_tensor import FastTrain
+
 
     def render_run_fast_interface():
         st.header("Module 3 - Efficient")
         render_train_interface(FastTrain, False)
+
 
     PAGES["Module 3: Efficient"] = render_run_fast_interface
 
@@ -107,7 +118,6 @@ if module_selection == "Module 4":
 
     PAGES["Module 4: Images"] = render_run_image_interface
     PAGES["Module 4: Sentiment"] = render_run_sentiment_interface
-
 
 PAGE_OPTIONS = list(PAGES.keys())
 

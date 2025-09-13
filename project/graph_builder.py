@@ -80,7 +80,7 @@ class GraphBuilder:
 
                 for input in cur.history.inputs:
                     if not isinstance(input, Scalar) and not isinstance(
-                        input, minitorch.Tensor
+                            input, minitorch.Tensor
                     ):
                         continue
                     queue.append([input])

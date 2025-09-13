@@ -114,17 +114,17 @@ class MathTest(Generic[A]):
     @staticmethod
     def complex(a: A) -> A:
         return (
-            operators.log(
-                operators.sigmoid(
-                    operators.relu(operators.relu(a * 10 + 7) * 6 + 5) * 10
+                operators.log(
+                    operators.sigmoid(
+                        operators.relu(operators.relu(a * 10 + 7) * 6 + 5) * 10
+                    )
                 )
-            )
-            / 50
+                / 50
         )
 
     @classmethod
     def _tests(
-        cls,
+            cls,
     ) -> Tuple[
         Tuple[str, Callable[[A], A]],
         Tuple[str, Callable[[A, A], A]],
