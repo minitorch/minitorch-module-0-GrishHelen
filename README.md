@@ -6,3 +6,9 @@
 * Docs: https://minitorch.github.io/
 
 * Overview: https://minitorch.github.io/module0/module0/
+
+## LLM usage
+
+Used Deepseek in Task 0.5 to add docstrings for the datasets.
+The prompt was "Add docstrings for all the datasets in the file"
+with code from `minitorch/datasets.py` attached.
