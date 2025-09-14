@@ -11,7 +11,7 @@ import minitorch
 
 
 def render_train_interface(
-    TrainCls, graph=True, hidden_layer=True, parameter_control=False
+        TrainCls, graph=True, hidden_layer=True, parameter_control=False
 ):
     datasets_map = minitorch.datasets
     st.write("## Sandbox for Model Training")
